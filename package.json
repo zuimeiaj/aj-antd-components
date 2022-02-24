@@ -4,12 +4,19 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
+    "build": "webpack --progress --stats-error-details",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
     "core-js": "^3.8.3",
-    "vue": "^2.6.14"
+    "element-ui": "^2.15.6",
+    "gulp": "^4.0.2",
+    "gulp-less": "^5.0.0",
+    "gulp-minify-css": "^1.2.4",
+    "less": "^4.1.2",
+    "less-loader": "^10.2.0",
+    "vue": "^2.6.14",
+    "zuimeiaj-bizui": "^1.0.4"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",
@@ -17,9 +24,12 @@
     "@vue/cli-plugin-babel": "~5.0.0",
     "@vue/cli-plugin-eslint": "~5.0.0",
     "@vue/cli-service": "~5.0.0",
+    "@vue/compiler-sfc": "^3.2.31",
     "eslint": "^7.32.0",
     "eslint-plugin-vue": "^8.0.3",
-    "vue-template-compiler": "^2.6.14"
+    "vue-loader": "^15.9.8",
+    "vue-template-compiler": "^2.6.14",
+    "webpack-cli": "^4.9.2"
   },
   "eslintConfig": {
     "root": true,
