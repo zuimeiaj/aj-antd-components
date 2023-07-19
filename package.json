@@ -1,8 +1,8 @@
 {
-  "name": "yoo-biz-components",
-  "version": "0.1.0",
-  "description": "基于elementui的业务组件库",
-  "main": "dist/index.umd.js",
+  "name": "aj-antd-components",
+  "version": "1.0.0",
+  "description": "A component library based on vue2 and ant-design-vue",
+  "main": "dist/index.js",
   "files": [
     "lib",
     "dist",
@@ -11,30 +11,46 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "webpack --progress --stats-error-details",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "docs:dev": "vuepress dev docs",
+    "docs:build": "vuepress build docs"
   },
   "dependencies": {
+    "ant-design-vue": "^1.7.8",
     "core-js": "^3.8.3",
-    "element-ui": "^2.15.6",
-    "gulp": "^4.0.2",
-    "gulp-less": "^5.0.0",
-    "gulp-minify-css": "^1.2.4",
-    "less": "^4.1.2",
-    "less-loader": "^10.2.0",
+    "currencyformatter.js": "^2.2.0",
+    "debounce": "^1.2.1",
+    "decimal.js": "^10.4.3",
+    "file-saver": "^2.0.5",
+    "v-viewer": "^1.6.4",
+    "viewerjs": "^1.10.4",
     "vue": "^2.6.14",
-    "zuimeiaj-bizui": "^1.0.4"
+    "vue-clipboard2": "^0.3.3",
+    "vuex": "^3.1.1"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",
     "@babel/eslint-parser": "^7.12.16",
+    "@babel/plugin-proposal-optional-chaining": "^7.21.0",
     "@vue/cli-plugin-babel": "~5.0.0",
     "@vue/cli-plugin-eslint": "~5.0.0",
     "@vue/cli-service": "~5.0.0",
     "@vue/compiler-sfc": "^3.2.31",
+    "babel-plugin-import": "^1.13.6",
+    "css-loader": "^6.8.1",
     "eslint": "^7.32.0",
     "eslint-plugin-vue": "^8.0.3",
+    "gulp": "^4.0.2",
+    "gulp-less": "^5.0.0",
+    "gulp-minify-css": "^1.2.4",
+    "less": "^3.9.0",
+    "less-loader": "6.0",
+    "mini-css-extract-plugin": "^2.7.6",
+    "style-loader": "^3.3.3",
     "vue-loader": "^15.9.8",
+    "vue-router": "^3.0.4",
     "vue-template-compiler": "^2.6.14",
+    "vuepress": "^1.9.7",
     "webpack-cli": "^4.9.2"
   },
   "eslintConfig": {
@@ -49,7 +65,9 @@
     "parserOptions": {
       "parser": "@babel/eslint-parser"
     },
-    "rules": {}
+    "rules": {
+      "vue/multi-word-component-names": "off"
+    }
   },
   "browserslist": [
     "> 1%",
