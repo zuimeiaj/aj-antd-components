@@ -17,6 +17,7 @@ const externals = [
   ['currencyformatter.js', 'currencyformatter.js'],
   ['vuex', 'vuex'],
   ['wangeditor', 'wangeditor'],
+  ['moment', 'moment'],
 ]
 
 function getComponents() {
