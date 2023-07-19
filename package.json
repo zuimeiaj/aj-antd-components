@@ -16,7 +16,7 @@
     "docs:build": "vuepress build docs"
   },
   "dependencies": {
-    "aj-antd-components": "^1.0.0",
+    "aj-antd-components": "^1.0.1",
     "vue-router": "^3.0.4"
   },
   "devDependencies": {
