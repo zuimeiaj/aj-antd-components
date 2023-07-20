@@ -2,6 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import BizAntdComponents from 'aj-antd-components'
+console.log('biz:', BizAntdComponents)
 Vue.use(BizAntdComponents)
 Vue.config.productionTip = false
 
