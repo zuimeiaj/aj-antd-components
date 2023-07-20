@@ -37,3 +37,13 @@ export default {
   },
 }
 </script>
+
+<style lang="less">
+.app-page {
+  background: #f8f8f8;
+  min-height: calc(100vh - 50px);
+}
+.gutter {
+  padding: 15px;
+}
+</style>
