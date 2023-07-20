@@ -1,6 +1,6 @@
 {
   "name": "aj-antd-components",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "A component library based on vue2 and ant-design-vue",
   "main": "dist/index.js",
   "files": [
@@ -69,7 +69,10 @@
     },
     "rules": {
       "vue/multi-word-component-names": "off"
-    }
+    },
+    "ignorePatterns": [
+      "*.d.ts"
+    ]
   },
   "browserslist": [
     "> 1%",

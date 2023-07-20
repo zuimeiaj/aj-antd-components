@@ -3,6 +3,7 @@ const glob = require('glob')
 const pkg = require('./package.json')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 // 不需要打包的库，第二个参数为cdn加载时的全局变量名称
 const externals = [
@@ -78,5 +79,8 @@ module.exports = {
       filename: '[name].css',
     }),
     new VueLoaderPlugin(),
+    new CopyWebpackPlugin({
+      patterns: [{ from: 'lib/types', to: './' }],
+    }),
   ],
 }
