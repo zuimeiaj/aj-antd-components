@@ -1,7 +1,13 @@
 <script>
+import { LoadingButton } from 'aj-antd-components'
+
 export default {
   render() {
-    return <div>112312</div>
+    return (
+      <div>
+        <LoadingButton>hello</LoadingButton>
+      </div>
+    )
   },
 }
 </script>

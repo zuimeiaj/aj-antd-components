@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
-import { install } from 'aj-antd-components'
-console.log(install)
+import BizAntdComponents from 'aj-antd-components'
+Vue.use(BizAntdComponents)
 Vue.config.productionTip = false
 
 new Vue({
