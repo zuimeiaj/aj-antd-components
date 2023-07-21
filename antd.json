@@ -1,0 +1,6 @@
+{
+  "Button": {
+    "description": "按钮",
+    "attributes": ["type", "hmltType", "onClick", "icon", "loading", "size"]
+  }
+}

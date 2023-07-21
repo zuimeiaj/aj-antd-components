@@ -1,5 +1,5 @@
 <script>
-import { FormLayout, LoadingButton } from 'aj-antd-components'
+import { LoadingButton } from 'aj-antd-components'
 export default {
   methods: {
     handleClick() {
@@ -11,11 +11,9 @@ export default {
     },
   },
   render() {
-    const columns = [{ label: '你好', type: 'input' }]
     return (
       <div class="app-page gutter">
-        <LoadingButton click={this.handleClick}>hello</LoadingButton>
-        <FormLayout columns={columns}></FormLayout>
+        <LoadingButton>123123</LoadingButton>
       </div>
     )
   },
