@@ -21,9 +21,11 @@ export default {
     ]
     return (
       <CommonPageVue title="FormLayout" description="可配置动态表单">
-        <FormLayout ref="layout" columns={columns}>
-          <LoadingButton click={this.submit}>提交表单</LoadingButton>
-        </FormLayout>
+        <div style="width:600px">
+          <FormLayout ref="layout" columns={columns}>
+            <LoadingButton click={this.submit}>提交表单</LoadingButton>
+          </FormLayout>
+        </div>
         {JSON.stringify(this.values)}
       </CommonPageVue>
     )
