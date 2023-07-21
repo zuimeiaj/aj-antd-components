@@ -1,10 +1,14 @@
 import Router from 'vue-router'
 import vue from 'vue'
-import PageIndex from '@/pages/index.vue'
-console.log(PageIndex)
+import { ComponentList } from './components'
 vue.use(Router)
 const router = new Router({
-  routes: [{ path: '/', component: PageIndex }],
+  routes: ComponentList.map((item) => {
+    return {
+      path: '/' + item.toLowerCase(),
+      component: () => import('@/pages/' + item.toLowerCase() + '.vue'),
+    }
+  }),
 })
 
 export default router

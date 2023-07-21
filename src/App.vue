@@ -1,8 +1,15 @@
 <script>
 import { Layout, Menu } from 'ant-design-vue'
+import { ComponentList } from './components'
 export default {
+  data() {
+    return {
+      menus: ComponentList.slice(),
+    }
+  },
   methods: {
     handleClick(e) {
+      if (this.$route.path.slice(1) == e.key) return
       this.$router.push({
         path: '/' + e.key,
       })
@@ -12,19 +19,15 @@ export default {
     return (
       <Layout id="app">
         <Layout.Header>
-          <h1 style="color:#ffffff">Yoo biz components</h1>
+          <h1 style="color:#ffffff">aj-antd-components</h1>
         </Layout.Header>
         <Layout.Content>
           <Layout>
             <Layout.Sider>
               <Menu onClick={this.handleClick}>
-                <Menu.Item key="formlayout">Formlayout</Menu.Item>
-                <Menu.Item key="input">Input</Menu.Item>
-                <Menu.Item key="data-select">Data-select</Menu.Item>
-                <Menu.Item key="data-dictionary">Data dictionary</Menu.Item>
-                <Menu.Item key="data-cascader">Data cascader</Menu.Item>
-                <Menu.Item key="date">Date picker</Menu.Item>
-                <Menu.Item key="range">Date range picker</Menu.Item>
+                {this.menus.map((item) => {
+                  return <Menu.Item key={item.toLowerCase()}>{item}</Menu.Item>
+                })}
               </Menu>
             </Layout.Sider>
             <Layout.Content>

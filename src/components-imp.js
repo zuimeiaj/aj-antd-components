@@ -1,0 +1,38 @@
+import { CommonUtils } from 'aj-antd-components'
+
+export default {
+  select: {
+    fetchDepartment: async () => {
+      await CommonUtils.waitForSeconds(0.2)
+      return [
+        { label: '总裁办', value: '1' },
+        { label: '研发中心', value: '2' },
+        { label: '市场运营部', value: '3' },
+      ]
+    },
+  },
+  cascader: {
+    fetchDepartment: async () => {
+      await CommonUtils.waitForSeconds(0.2)
+      return [
+        {
+          label: '总裁办',
+          value: '1',
+          children: [
+            { label: 'CTO', value: 'CTO' },
+            { label: 'CFO', value: 'CFO' },
+            { label: 'COO', value: 'COO' },
+          ],
+        },
+        {
+          label: '运营总',
+          value: '2',
+          children: [
+            { label: '新媒体运营', value: '22' },
+            { label: '商品运营', value: '23' },
+          ],
+        },
+      ]
+    },
+  },
+}
