@@ -25,7 +25,6 @@ export default {
   },
   data() {
     return {
-      localValueKey: 'id',
       options: [],
     }
   },
@@ -35,6 +34,7 @@ export default {
     },
   },
   async created() {
+    this.map = {}
     await this.fetchOptions(this.data)
   },
   methods: {
@@ -48,7 +48,7 @@ export default {
         options,
         (item, index, parent) => {
           item.parent = parent
-          this.map[item[this.localValueKey]] = item
+          this.map[item.value] = item
         },
         'children'
       )
@@ -57,7 +57,7 @@ export default {
     handleChange(value) {
       if (value && value.length > 0) {
         let v = value[value.length - 1]
-        let val = this.array ? [v, this.map[v][this.fieldNames.label]] : v
+        let val = this.array ? [v, this.map[v].label] : v
         this.$emit('change', val, this.map[v])
         this.$emit('input', val)
       } else {
@@ -71,7 +71,7 @@ export default {
       let item = this.map[value]
       let result = []
       while (item) {
-        result.push(item[this.localValueKey])
+        result.push(item.value)
         item = item.parent
       }
       return result.reverse()
@@ -82,7 +82,6 @@ export default {
       <Cascader
         showSearch
         disabled={this.disabled}
-        fieldNames={this.fieldNames}
         placeholder="请选择"
         value={this.getValue()}
         changeOnSelect={this.changeOnSelect}
