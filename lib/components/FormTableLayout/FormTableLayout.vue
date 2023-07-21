@@ -38,14 +38,6 @@ export default {
         return {}
       },
     },
-    showSearch: {
-      type: Boolean,
-      default: true,
-    },
-    tabExtra: {
-      type: Array,
-      default: () => [],
-    },
   },
   data() {
     return {

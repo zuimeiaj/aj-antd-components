@@ -22,6 +22,7 @@ export default {
       default: 'date',
     },
     format: String,
+    iso: String,
   },
   methods: {
     handleChange(value) {
@@ -33,23 +34,22 @@ export default {
     },
     getValue(value) {
       if (this.view === 'month') {
-        return value.format(this.getFormat())
+        return this.getFormatValue(value)
       }
       // date-time格式
       if (this.showTime) {
-        return value.format(this.getFormat())
+        return this.getFormatValue(value)
       }
       // date-time 0点格式
       if (this.hasHours) {
-        return value.startOf('days').format(this.getFormat())
+        return this.getFormatValue(value.startOf('days'))
       }
       // 返回日期格式
-
-      return value.format(this.getFormat())
+      return this.getFormatValue(value)
     },
     getFormat() {
       if (this.format) return this.format
-      if (this.view == 'MONTH') {
+      if (this.view == 'month') {
         return MONTH
       }
       if (this.showTime) {
@@ -57,6 +57,13 @@ export default {
       }
       return DATE
     },
+    getFormatValue(value) {
+      if (this.iso) {
+        return value.toISOString()
+      }
+      return value.format(this.getFormat())
+    },
+
     getStringValue() {
       return this.value ? String(this.value) : this.value
     },

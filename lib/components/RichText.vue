@@ -9,7 +9,16 @@ import ComponentInterface from './Interface'
 
 export default {
   name: 'RichText',
-  props: ['value'],
+  props: {
+    limitSize: {
+      type: Number,
+      default: 10 * 1024 * 1024, // 10M,
+    },
+    zIndex: {
+      type: Number,
+      default: 10,
+    },
+  },
   watch: {
     value(text) {
       if (text !== this.initialValue) {
@@ -23,17 +32,15 @@ export default {
     const { value } = this.$props
     editor.customConfig = {
       uploadImgServer: ComponentInterface.upload.uploadUrl,
-      uploadImgMaxSize: 10 * 1024 * 1024, // 10M,
-      zIndex: 10,
-      uploadFileName: 'file',
+      uploadImgMaxSize: this.limitSize,
+      zIndex: this.zIndex,
+      uploadFileName: ComponentInterface.upload.fileFieldName || 'file',
       uploadImgHeaders: {
-        token: ComponentInterface.upload.toke(),
+        [ComponentInterface.upload.tokenField || 'token']: ComponentInterface.upload.toke(),
       },
       uploadImgHooks: {
         customInsert: (insertImg, result) => {
-          if (result.data.url) {
-            insertImg(result.data.url)
-          }
+          ComponentInterface.upload.uploadSuccess(insertImg, result)
         },
       },
       fontNames: ['宋体', '微软雅黑', 'Arial', 'Tahoma', 'Verdana'],

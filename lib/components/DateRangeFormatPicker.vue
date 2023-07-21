@@ -19,6 +19,11 @@ export default {
       type: Boolean,
       default: true,
     },
+    iso: {
+      type: Boolean,
+      default: true,
+    },
+    format: String,
   },
   data() {
     return {
@@ -42,24 +47,33 @@ export default {
     },
 
     getFormat() {
+      if (this.format) return this.format
       if (this.showTime) {
         return FORMAT
       } else {
         return FORMAT_DATE
       }
     },
+
+    getFormatValue(value, format) {
+      if (this.iso) {
+        return value.toISOString()
+      }
+      return value.format(this.format || format)
+    },
+
     getValue(value) {
       const start = value[0]
       const end = value[1]
       if (this.showTime) {
         // DATE-TIME,用户选择的时间
-        return [start.format(FORMAT), end.format(FORMAT)]
+        return [this.getFormatValue(start, FORMAT), this.getFormatValue(end, FORMAT)]
       } else if (this.hasHours) {
         // DATE-TIME 00:00:00 - 23:59:59
-        return [start.startOf('days').format(FORMAT), end.endOf('days').format(FORMAT)]
+        return [this.getFormatValue(start.startOf('days'), FORMAT), this.getFormatValue(end.endOf('days'), FORMAT)]
       } else {
         // DATE
-        return [start.format(FORMAT_DATE), end.format(FORMAT_DATE)]
+        return [this.getFormatValue(start, FORMAT_DATE), this.getFormatValue(end, FORMAT_DATE)]
       }
     },
   },

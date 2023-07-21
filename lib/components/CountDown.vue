@@ -1,7 +1,5 @@
 <template>
-  <Button class="count-down" type="primary" @click.stop.prevent="sendCode"
-    >{{ isStart ? senconds + '秒' : '获取验证码' }}
-  </Button>
+  <Button class="count-down" type="primary" @click.stop.prevent="sendCode">{{ isStart ? sText : normalText }} </Button>
 </template>
 <script>
 import { Button } from 'ant-design-vue'
@@ -12,10 +10,29 @@ export default {
   data() {
     return {
       isStart: false,
-      senconds: 59,
+      s: this.$props.senconds,
     }
   },
-  props: ['send'],
+  props: {
+    send: Function,
+    senconds: {
+      type: Number,
+      default: 59,
+    },
+    text: {
+      type: String,
+      default: '{s}秒',
+    },
+    normalText: {
+      type: String,
+      default: '获取验证码',
+    },
+  },
+  computed: {
+    sText() {
+      return this.text.replace('{s}', this.s)
+    },
+  },
   methods: {
     sendCode() {
       if (this.isStart === false) {
@@ -30,17 +47,15 @@ export default {
     },
     startTimer() {
       setTimeout(() => {
-        if (this.senconds > 0) {
+        if (this.s > 0) {
           this.startTimer()
         } else {
           this.isStart = false
-          this.senconds = 59
+          this.s = this.senconds
         }
-        this.senconds -= 1
+        this.s -= 1
       }, 1000)
     },
   },
 }
 </script>
-
-<style scoped></style>

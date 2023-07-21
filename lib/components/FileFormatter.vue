@@ -65,9 +65,11 @@ export default {
     const { imgs, files } = this.getGroup()
     return (
       <span class="file-formatter">
-        {imgs && <ImageViewerVue multiple={this.multiple} src={imgs} />}
+        {imgs && <ImageViewerVue customRender={this.renderContent} multiple={this.multiple} src={imgs} />}
         {files.length > 0 &&
           files.map((item) => {
+            if (this.renderContent) return this.renderContent(item)
+
             return (
               <a class={this.block ? 'file-block' : 'file-inline'} href={item.url} target="_blank">
                 {item.name}

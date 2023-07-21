@@ -48,10 +48,6 @@ export default {
         return {}
       },
     },
-    hasAction: {
-      type: Boolean,
-      default: true,
-    },
   },
   data() {
     return {
@@ -81,7 +77,6 @@ export default {
     activeKey(key) {
       this.getSearchs()
       this.$emit('tabChange', key, { ...this.search })
-      this.refreshPageActions()
     },
   },
 
@@ -146,20 +141,10 @@ export default {
       })
       this.getSearchs()
     },
-    refreshPageActions() {
-      if (!this.hasAction) return
-      this.$store.commit('user/setPageAction', { payload: this.tabActions })
-    },
   },
-  activated() {
-    this.refreshPageActions()
-  },
+
   created() {
     if (this.namespace) {
-      this.$store.commit({
-        type: 'menu/setNamespaceByPagePath',
-        payload: { namespace: this.namespace, path: this.$route.path },
-      })
       this.$eventbus.$off(this.namespace, this.refresh)
       this.$eventbus.$on(this.namespace, this.refresh)
     }
@@ -172,7 +157,6 @@ export default {
       this.search[this.tabs[0].field] = this.tabs[0].value
     }
 
-    this.refreshPageActions(this.activeKey)
     this.getSearchs()
   },
   beforeDestroy() {
@@ -192,7 +176,7 @@ export default {
             v-model={this.activeKey}
             type="card"
             animated={false}
-            tabBarExtraContent={!this.hasAction && <FormTableLayoutActionsVue actions={this.tabActions} />}
+            tabBarExtraContent={<FormTableLayoutActionsVue actions={this.tabActions} />}
           >
             {this.tabs.map((item, index) => {
               return <Tabs.TabPane key={String(index)} tab={item.name} />

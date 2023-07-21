@@ -2,22 +2,26 @@ import { Form } from 'ant-design-vue'
 import { FieldValue, ValidationRule, WrappedFormUtils } from 'ant-design-vue/types/form/form'
 import { ColSpanType } from 'ant-design-vue/types/grid/col'
 import Vue, { Component } from 'vue'
+import { FormItem } from './formitem'
 
-declare type FormComponentType =
+export declare type FormComponentType =
   | 'input'
   | 'textarea'
   | 'enum'
   | 'dictionary'
+  | 'cascader'
   | 'date'
   | 'range'
   | 'numberRange'
+  | 'numberStep'
   | 'upload'
-  | 'nativeUpload'
+  | 'nativeFile'
   | 'richtext'
   | 'password'
-  | 'dataSelect'
+  | 'select'
   | 'time'
   | 'arrayList'
+
 declare interface FormLayoutColumn {
   /**
    * 字段名称，form.getFieldDecorator 的第一个参数
@@ -87,6 +91,16 @@ declare interface FormLayoutColumn {
 }
 
 export declare class FormLayout extends Vue {
+  /**
+   * 注册组件
+   * @param name 注解别名，用于 columns 中的type值
+   * @param vm 组件
+   */
+  static registerFormComponent(name: string, vm: Component): void
+  /**
+   * 获取已注册组件
+   */
+  static getFormComponents(): { [key in FormComponentType]: FormItem }
   /**
    *  唯一名称
    */

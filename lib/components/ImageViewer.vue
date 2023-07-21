@@ -1,5 +1,6 @@
 <script>
 import 'viewerjs/dist/viewer.css'
+import ComponentInterface from './Interface'
 export default {
   name: 'ImageViewer',
   props: {
@@ -27,20 +28,10 @@ export default {
     this.getImgs(this.src)
   },
   methods: {
-    getImageUrl(imageUrl) {
-      const { path, token } = this.$store.state.user.userInfo
-      let url = ''
-      if (imageUrl && imageUrl.startsWith('http')) {
-        url = imageUrl
-      } else if (imageUrl) {
-        url = path + imageUrl
-      }
-      return url + '?token=' + token
-    },
     getImgs(src) {
       let url = Array.isArray(src) ? src : (src || '').split(',').filter(Boolean)
       url = url.map((item) => {
-        return this.getImageUrl(item)
+        return ComponentInterface.upload.getImageUrl(item)
       })
       this.url = this.multiple ? url : url.slice(0, 1)
     },

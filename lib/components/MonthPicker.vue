@@ -4,9 +4,7 @@ import { DatePicker } from 'ant-design-vue'
 export default {
   name: 'MonthPicker',
   props: {
-    value: {
-      type: Array,
-    },
+    value: String,
     max: {
       type: Object,
       default: () => moment('2100-01', 'YYYY-MM'),
@@ -17,18 +15,23 @@ export default {
     },
     params: {
       type: Object,
+      default: () => ({}),
+    },
+    format: {
+      type: String,
+      default: 'YYYY-MM',
     },
   },
   methods: {
     getValue() {
       const value = this.value
       if (value) {
-        return moment(value.join('-'), 'YYYY-MM')
+        return moment(value.join('-'), this.format)
       }
     },
     handleChange(value) {
       if (value) {
-        this.$emit('change', value.format('YYYY-MM').split('-'))
+        this.$emit('change', value.format(this.format))
       } else {
         this.$emit('change', undefined)
       }
@@ -37,7 +40,7 @@ export default {
   render() {
     return (
       <DatePicker.MonthPicker
-        {...{ props: this.params }}
+        props={this.params}
         disabledMonth={(date) => {
           return date.startOf('date') < this.min || date.startOf('date') > this.max
         }}

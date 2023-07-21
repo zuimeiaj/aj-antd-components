@@ -16,10 +16,6 @@ export default {
       default: Infinity,
       type: Number,
     },
-    fixed: {
-      default: 2,
-      type: Number,
-    },
     min: {
       default: -Infinity,
       type: Number,
