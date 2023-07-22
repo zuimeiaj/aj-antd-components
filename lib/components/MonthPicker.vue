@@ -26,7 +26,7 @@ export default {
     getValue() {
       const value = this.value
       if (value) {
-        return moment(value.join('-'), this.format)
+        return moment(value, this.format)
       }
     },
     handleChange(value) {
