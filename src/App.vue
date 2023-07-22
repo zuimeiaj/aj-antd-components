@@ -1,5 +1,5 @@
 <script>
-import { Layout, Menu } from 'ant-design-vue'
+import { Layout, Menu, BackTop } from 'ant-design-vue'
 import { ComponentList } from './components'
 export default {
   data() {
@@ -17,14 +17,16 @@ export default {
   },
   render() {
     return (
-      <Layout id="app">
-        <Layout.Header>
-          <h1 style="color:#ffffff">aj-antd-components</h1>
+      <Layout id="app" class="app-layout">
+        <Layout.Header class="app-header" style={{ background: '#ffffff', padding: '0 15px' }}>
+          <h1>
+            <img height="40px" class="appicon" src="/favicon.ico" /> 一套基于Ant-design-vue的组件库
+          </h1>
         </Layout.Header>
         <Layout.Content>
           <Layout>
-            <Layout.Sider>
-              <Menu onClick={this.handleClick}>
+            <Layout.Sider theme="light">
+              <Menu theme="light" onClick={this.handleClick}>
                 {this.menus.map((item) => {
                   return <Menu.Item key={item.toLowerCase()}>{item}</Menu.Item>
                 })}
@@ -35,6 +37,7 @@ export default {
             </Layout.Content>
           </Layout>
         </Layout.Content>
+        <BackTop />
       </Layout>
     )
   },
@@ -42,11 +45,27 @@ export default {
 </script>
 
 <style lang="less">
+.ant-layout {
+  background: #f8f8f8 !important;
+}
+.app-layout {
+  padding-top: 60px;
+}
+.app-header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 10;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.05);
+}
 .app-page {
   background: #f8f8f8;
   min-height: calc(100vh - 50px);
 }
 .gutter {
   padding: 15px;
+}
+.gutter-v {
+  margin: 25px 0;
 }
 </style>

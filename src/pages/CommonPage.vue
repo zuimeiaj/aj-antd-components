@@ -15,6 +15,7 @@ export default {
 
 <style lang="less">
 .common-page {
+  background: #ffffff;
   .app-page-title {
     font-size: 20px;
     font-weight: bold;

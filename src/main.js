@@ -6,7 +6,10 @@ import 'aj-antd-components/dist/index.css'
 import BizAntdComponents from 'aj-antd-components'
 import componentsImp from './components-imp'
 import Vuex from 'vuex'
+import VueHighlight from 'vue-highlightjs'
+import 'highlight.js/styles/a11y-light.css'
 Vue.use(Vuex)
+Vue.use(VueHighlight)
 Vue.use(BizAntdComponents, componentsImp)
 Vue.config.productionTip = false
 

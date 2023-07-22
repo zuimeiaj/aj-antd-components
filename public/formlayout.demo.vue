@@ -1,7 +1,6 @@
 <script>
 import { CommonUtils, DebounceInput, FormLayout, LoadingButton, ValidatorUtil } from 'aj-antd-components'
 import { Checkbox, Radio, Form, Row, Col, Card } from 'ant-design-vue'
-import CommonCodeHighlightVue from '../CommonCodeHighlight.vue'
 export default {
   data() {
     return {
@@ -27,10 +26,9 @@ export default {
       {
         title: '基础组件',
         columns: [
-          { span: 8, label: '下拉选(接口数据源)', field: 'select', type: 'select', props: { handler: 'department' } },
-          { span: 8, label: '级联(接口数据源)', field: 'cascader', type: 'cascader', props: { handler: 'department' } },
+          { label: '下拉选(接口数据源)', field: 'select', type: 'select', props: { handler: 'department' } },
+          { label: '级联(接口数据源)', field: 'cascader', type: 'cascader', props: { handler: 'department' } },
           {
-            span: 8,
             label: '下拉多选（从store中获取）',
             field: 'enum',
             type: 'dictionary',
@@ -41,7 +39,6 @@ export default {
             },
           },
           {
-            span: 8,
             label: '单选（从store中获取）',
             field: 'enum2',
             type: 'dictionary',
@@ -52,7 +49,6 @@ export default {
             },
           },
           {
-            span: 8,
             label: '手机号',
             field: 'phone',
             type: 'input',
@@ -64,7 +60,6 @@ export default {
             },
           },
           {
-            span: 8,
             label: '控制输入值',
             field: 'name',
             extra: '提示：使用required:true,验证必填',
@@ -76,14 +71,12 @@ export default {
             required: true,
           },
           {
-            span: 8,
             label: '数字',
             field: 'rules',
             extra: '提示：使用rules自定义验证',
             rules: [{ required: true, message: '请输入' }, ValidatorUtil.NumberReg],
           },
           {
-            span: 8,
             label: '控制显示隐藏',
             field: 'dy2',
             type: 'dictionary',
@@ -91,17 +84,20 @@ export default {
               code: 'yes_no',
             },
           },
-          { span: 8, label: '动态显示/隐藏', field: 'dy1', show: ({ dy2 }) => (dy2 ? dy2 == 2 : true) },
-          { type: 'textarea', field: 'textarea', label: 'Textarea', span: 24 },
+          {
+            label: '动态显示/隐藏',
+            field: 'dy1',
+            show: ({ dy2 }) => (dy2 ? dy2 == 2 : true),
+          },
         ],
       },
       {
         title: '日期',
         columns: [
-          { label: '日期', field: 'da1', span: 8, type: 'date' },
-          { label: '日期范围', field: 'da2', span: 8, type: 'range' },
-          { label: '月份', field: 'da3', span: 8, type: 'month' },
-          { label: '时间', field: 'da4', span: 8, type: 'time' },
+          { label: '日期', field: 'da1', span: 12, type: 'date' },
+          { label: '日期范围', field: 'da2', span: 12, type: 'range' },
+          { label: '月份', field: 'da3', span: 12, type: 'month' },
+          { label: '时间', field: 'da4', span: 12, type: 'time' },
         ],
       },
       {
@@ -198,9 +194,9 @@ export default {
     ]
     return (
       <div>
-        <div>
+        <div style="width:800px">
           <FormLayout ref="layout" columns={columns}>
-            <div class="gutter-v">
+            <div style="margin-top:30px">
               <LoadingButton click={this.submit}>提交表单</LoadingButton>
               <LoadingButton style="margin-left:20px" click={this.reset}>
                 重置表单
@@ -209,7 +205,7 @@ export default {
           </FormLayout>
         </div>
 
-        <CommonCodeHighlightVue path="formlayout.demo.vue" />
+        <code>{this.values && JSON.stringify(this.values, null, 8)}</code>
       </div>
     )
   },
