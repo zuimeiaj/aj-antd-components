@@ -6,7 +6,7 @@ import { removeEmptyProp } from '../../utils'
 const FormItem = Form.Item
 export default {
   name: 'FormTableLayoutFields',
-  props: ['fields'],
+  props: ['fields', 'showLabel'],
   data() {
     return {
       form: this.$form.createForm(this),
@@ -63,10 +63,16 @@ export default {
             <Row>
               {mFields.map((item) => {
                 const DynamicInput = TypeMap[item.type || 'input']
+
                 return (
-                  <FormItem required={item.required} colon={false} class="form-item" label={item.label}>
+                  <FormItem
+                    required={item.required}
+                    colon={false}
+                    class="form-item"
+                    label={this.showLabel ? item.label : ''}
+                  >
                     <DynamicInput
-                      placeholder={item.placeholder}
+                      placeholder={item.placeholder || item.label}
                       props={item.props}
                       v-decorator={[item.field, item.defaultValue ? { initialValue: item.defaultValue } : void 0]}
                     />
