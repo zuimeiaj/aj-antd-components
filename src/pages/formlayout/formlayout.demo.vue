@@ -1,7 +1,6 @@
 <script>
 import { CommonUtils, DebounceInput, FormLayout, LoadingButton, ValidatorUtil } from 'aj-antd-components'
 import { Checkbox, Radio, Form, Row, Col, Card } from 'ant-design-vue'
-import CommonCodeHighlightVue from '../CommonCodeHighlight.vue'
 export default {
   data() {
     return {
@@ -166,7 +165,7 @@ export default {
         ],
       },
       {
-        title: '自定义渲染',
+        title: '自定义渲染(customRender(form):VNode)',
         columns: [
           {
             customRender: (form) => {
@@ -208,8 +207,6 @@ export default {
             </div>
           </FormLayout>
         </div>
-
-        <CommonCodeHighlightVue path="formlayout.demo.vue" />
       </div>
     )
   },

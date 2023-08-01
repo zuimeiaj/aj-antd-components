@@ -1,13 +1,21 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
+import { Form } from 'ant-design-vue'
 import 'ant-design-vue/dist/antd.min.css'
 import 'aj-antd-components/dist/index.css'
 import BizAntdComponents from 'aj-antd-components'
 import componentsImp from './components-imp'
 import Vuex from 'vuex'
 import VueHighlight from 'vue-highlightjs'
+
+import highlight from 'highlight.js'
+window.hljs = highlight
+
 import 'highlight.js/styles/a11y-light.css'
+Vue.prototype.$eventbus = new Vue()
+
+Vue.use(Form)
 Vue.use(Vuex)
 Vue.use(VueHighlight)
 Vue.use(BizAntdComponents, componentsImp)

@@ -35,4 +35,23 @@ export default {
       ]
     },
   },
+  table: {
+    post: (uri, send) => {
+      console.log(send)
+      return {
+        data: {
+          totalCount: 30,
+          list: new Array(30).fill(0).map(() => {
+            return new Array(10).fill(0).reduce(
+              (a, b, i) => {
+                a[i] = i
+                return a
+              },
+              { id: Math.random() }
+            )
+          }),
+        },
+      }
+    },
+  },
 }

@@ -1,6 +1,6 @@
 const { defineConfig } = require('@vue/cli-service')
-const CopyPlugin = require('copy-webpack-plugin')
 module.exports = defineConfig({
+  publicPath: '/biz/',
   css: {
     loaderOptions: {
       less: {
@@ -23,12 +23,5 @@ module.exports = defineConfig({
         },
       },
     },
-  },
-  configureWebpack: {
-    plugins: [
-      new CopyPlugin({
-        patterns: [{ from: './src/pages/**/*.demo.vue', to: './public' }],
-      }),
-    ],
   },
 })

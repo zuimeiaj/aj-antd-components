@@ -1,6 +1,7 @@
 <script>
 import { Layout, Menu, BackTop } from 'ant-design-vue'
 import { ComponentList } from './components'
+console.log(process.env)
 export default {
   data() {
     return {
@@ -23,20 +24,19 @@ export default {
             <img height="40px" class="appicon" src="/favicon.ico" /> 一套基于Ant-design-vue的组件库
           </h1>
         </Layout.Header>
-        <Layout.Content>
-          <Layout>
-            <Layout.Sider theme="light">
-              <Menu theme="light" onClick={this.handleClick}>
-                {this.menus.map((item) => {
-                  return <Menu.Item key={item.toLowerCase()}>{item}</Menu.Item>
-                })}
-              </Menu>
-            </Layout.Sider>
-            <Layout.Content>
-              <router-view></router-view>
-            </Layout.Content>
-          </Layout>
-        </Layout.Content>
+        <Layout>
+          <Layout.Sider class="app-sider" theme="light">
+            <Menu theme="light" onClick={this.handleClick}>
+              {this.menus.map((item) => {
+                return <Menu.Item key={item.toLowerCase()}>{item}</Menu.Item>
+              })}
+            </Menu>
+          </Layout.Sider>
+          <Layout.Content class="app-page-views">
+            <router-view></router-view>
+            <BackTop target={() => document.querySelector('.app-page-views')} />
+          </Layout.Content>
+        </Layout>
         <BackTop />
       </Layout>
     )
@@ -49,15 +49,20 @@ export default {
   background: #f8f8f8 !important;
 }
 .app-layout {
-  padding-top: 60px;
+  height: 100vh;
+  overflow-y: auto;
+  .app-sider,
+  .app-page-views {
+    overflow-y: auto;
+  }
 }
 .app-header {
-  position: fixed;
   top: 0;
   width: 100%;
   z-index: 10;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.05);
 }
+
 .app-page {
   background: #f8f8f8;
   min-height: calc(100vh - 50px);
