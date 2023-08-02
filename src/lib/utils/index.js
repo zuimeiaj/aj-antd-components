@@ -67,17 +67,7 @@ export function getPwdWithRandom(len = 16) {
 }
 
 export function copyToClipboard(text) {
-  const input = document.createElement('input')
-  document.body.appendChild(input)
-  input.setAttribute('value', text)
-  input.select()
-  let flag = false
-  if (document.execCommand('copy')) {
-    document.execCommand('copy')
-    flag = true
-  }
-  document.body.removeChild(input)
-  return flag
+  navigator.clipboard.writeText(text)
 }
 
 export function downloadByBuffer(buffer, fileName) {

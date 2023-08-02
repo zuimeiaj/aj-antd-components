@@ -100,7 +100,7 @@ export declare class FormLayout extends Vue {
   /**
    * 获取已注册组件
    */
-  static getFormComponents(): { [key in FormComponentType]: FormItem }
+  static getFormComponents(): { [key in FormComponentType]: FormItem<any> }
   /**
    *  唯一名称
    */

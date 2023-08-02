@@ -86,6 +86,11 @@ function install(Vue, options = {}) {
 
 FormLayout.registerFormComponent = registerForm
 FormLayout.getFormComponents = getFormTypes
+FormLayout.use = function (components) {
+  components.forEach((item) => {
+    registerForm(item.name, item.component)
+  })
+}
 
 export default {
   install,

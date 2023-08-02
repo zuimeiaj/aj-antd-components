@@ -1,39 +1,38 @@
 <script>
-import { Layout, Menu } from 'ant-design-vue'
+import { Tabs } from 'ant-design-vue'
+import testTableVue from './pages/test-table.vue'
+import testTableSingleVue from './pages/test-table-single.vue'
+import rowSelectionVue from './pages/row-selection.vue'
+
 export default {
-  methods: {
-    handleClick(e) {
-      this.$router.push({
-        path: '/' + e.key,
-      })
-    },
+  data() {
+    return {
+      tabs: [
+        { name: 'Tablelayout', component: testTableVue },
+        { name: 'TablelayoutSingle', component: testTableSingleVue },
+        { name: 'RowSelection', component: rowSelectionVue },
+      ],
+    }
   },
   render() {
     return (
-      <Layout id="app">
-        <Layout.Header>
-          <h1 style="color:#ffffff">Yoo biz components</h1>
-        </Layout.Header>
-        <Layout.Content>
-          <Layout>
-            <Layout.Sider>
-              <Menu onClick={this.handleClick}>
-                <Menu.Item key="formlayout">Formlayout</Menu.Item>
-                <Menu.Item key="input">Input</Menu.Item>
-                <Menu.Item key="data-select">Data-select</Menu.Item>
-                <Menu.Item key="data-dictionary">Data dictionary</Menu.Item>
-                <Menu.Item key="data-cascader">Data cascader</Menu.Item>
-                <Menu.Item key="date">Date picker</Menu.Item>
-                <Menu.Item key="range">Date range picker</Menu.Item>
-              </Menu>
-            </Layout.Sider>
-            <Layout.Content>
-              <router-view></router-view>
-            </Layout.Content>
-          </Layout>
-        </Layout.Content>
-      </Layout>
+      <div class="app-container">
+        <Tabs tabPosition="left">
+          {this.tabs.map((item) => {
+            return (
+              <Tabs.TabPane tab={item.name} key={item.name}>
+                <item.component />
+              </Tabs.TabPane>
+            )
+          })}
+        </Tabs>
+      </div>
     )
   },
 }
 </script>
+<style lang="less">
+.app-container {
+  padding: 50px;
+}
+</style>

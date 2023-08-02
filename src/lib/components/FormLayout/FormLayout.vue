@@ -83,7 +83,7 @@ export default {
 
   data() {
     return {
-      form: this.$form.createForm(this),
+      form: Form.createForm(this),
     }
   },
   provide() {

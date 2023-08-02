@@ -5,7 +5,8 @@
     "baseUrl": "./",
     "moduleResolution": "node",
     "paths": {
-      "components":["/lib/components"],
+      "components":["lib/components"],
+      "components/*":["lib/components/*"],
       "@":["src"],
       "@/*": [
         "src/*"

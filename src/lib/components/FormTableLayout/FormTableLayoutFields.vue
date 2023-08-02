@@ -1,36 +1,26 @@
 <script>
-import { Button, Col, Form, message, Row } from 'ant-design-vue'
+import { Button, Col, Form, Row } from 'ant-design-vue'
 import { TypeMap } from '../FormLayout/formType.js'
 import { removeEmptyProp } from '../../utils'
 
 const FormItem = Form.Item
 export default {
   name: 'FormTableLayoutFields',
-  props: ['fields', 'showLabel'],
+  props: {
+    fields: Array,
+    showLabel: Boolean,
+    value: {
+      type: Object,
+      default: () => ({}),
+    },
+  },
   data() {
     return {
-      form: this.$form.createForm(this),
+      form: Form.createForm(this),
     }
   },
-  watch: {
-    fields(value) {
-      if (value) {
-        let fields = this.getValueWithDefault(value)
-        this.form.setFieldsValue(fields)
-        this.$emit('search', removeEmptyProp(fields))
-      }
-    },
-  },
+
   methods: {
-    getValueWithDefault(fields) {
-      let value = {}
-      fields.forEach((item) => {
-        if ('defaultValue' in item) {
-          value[item.field] = item.defaultValue
-        }
-      })
-      return value
-    },
     handleSearch(e) {
       e.preventDefault()
       const value = this.getFieldsValue()
@@ -38,20 +28,21 @@ export default {
     },
     handleReset(e) {
       this.form.resetFields()
-      this.handleSearch(e)
+      const value = this.getFieldsValue()
+      this.$emit('reset', removeEmptyProp(value))
     },
     /**
      * 处理字符输入前后空格，日期范围合并
      */
     getFieldsValue() {
-      let value = this.form.getFieldsValue()
-      this.fields.forEach((item) => {
-        if (item.required && !value[item.field]) {
-          message.warning('请输入' + item.label)
-          throw 'requred:' + item.field
-        }
-      })
-      return value
+      return this.form.getFieldsValue()
+    },
+    setFieldsValue(value) {
+      this.form.setFieldsValue(value)
+    },
+    getDefaultValue(item) {
+      // if (this.value[item.field]) return { initialValue: this.value[item.field] }
+      if (item.defaultValue) return { initialValue: item.defaultValue }
     },
   },
   render() {
@@ -74,7 +65,7 @@ export default {
                     <DynamicInput
                       placeholder={item.placeholder || item.label}
                       props={item.props}
-                      v-decorator={[item.field, item.defaultValue ? { initialValue: item.defaultValue } : void 0]}
+                      v-decorator={[item.field, this.getDefaultValue(item)]}
                     />
                   </FormItem>
                 )

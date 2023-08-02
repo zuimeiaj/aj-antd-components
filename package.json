@@ -1,10 +1,9 @@
 {
   "name": "aj-antd-components",
-  "version": "1.0.8",
+  "version": "1.1",
   "description": "A component library based on vue2 and ant-design-vue",
   "main": "dist/index.js",
   "files": [
-    "lib",
     "dist",
     "README.md"
   ],
@@ -69,9 +68,13 @@
       "parser": "@babel/eslint-parser"
     },
     "rules": {
-      "vue/multi-word-component-names": "off"
+      "vue/multi-word-component-names": "off",
+      "no-unused-vars": "off",
+      "no-undef": "off",
+      "valid-typeof": "off"
     },
     "ignorePatterns": [
+      "/dist/*.js",
       "*.d.ts"
     ]
   },

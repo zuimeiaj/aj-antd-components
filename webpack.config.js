@@ -22,7 +22,7 @@ const externals = [
 ]
 
 function getComponents() {
-  const files = glob.sync(path.resolve(__dirname, 'lib/components/index.js'))
+  const files = glob.sync(path.resolve(__dirname, 'src/lib/components/index.js'))
   const resultMap = {}
   for (let filePath of files) {
     const name = filePath.split(/(\\|\/)/).reverse()[2]
@@ -80,7 +80,10 @@ module.exports = {
     }),
     new VueLoaderPlugin(),
     new CopyWebpackPlugin({
-      patterns: [{ from: 'lib/types', to: './' }],
+      patterns: [
+        { from: 'src/lib/types', to: './' },
+        { from: 'src/lib', to: './' },
+      ],
     }),
   ],
 }

@@ -75,3 +75,39 @@ export {
   RowSelection,
   ValidatorUtil,
 }
+
+declare module 'vue' {
+  export interface GlobalComponents {
+    FormLayout: FormLayout
+    FormTableLayout: FormTableLayout
+    FormTableLayoutActions: FormTableLayoutActions
+    FormTableLayoutSingle: FormTableLayoutSingle
+    FormTableLayoutFields: FormTableLayoutFields
+    DebounceInput: DebounceInput
+    DataSelect: DataSelect
+    DataCascader: DataCascader
+    DataTable: DataTable
+    DataDictionary: DataDictionary
+    LoadingButton: LoadingButton
+    Amount: Amount
+    Enum: Enum
+    MonthPicker: MonthPicker
+    DateFormatPicker: DateFormatPicker
+    DateRangeFormatPicker: DateRangeFormatPicker
+    NumberRangePicker: NumberRangePicker
+    NumberStepInput: NumberStepInput
+    UploadFile: UploadFile
+    TimePicker: TimePicker
+    TableColumnBtn: TableColumnBtn
+    RichText: RichText
+    RawText: RawText
+    RawHtml: RawHtml
+    PasswordInput: PasswordInput
+    NativeFile: NativeFile
+    ImageViewer: ImageViewer
+    FileFormatter: FileFormatter
+    Description: Description
+    CountDown: CountDown
+    Clipboard: Clipboard
+  }
+}

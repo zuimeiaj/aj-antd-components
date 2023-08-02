@@ -1,4 +1,7 @@
 const ComponentInterface = {
+  tablelayout: {
+    clearOnReset: true,
+  },
   // 接口数据源实现 fetch[handler](data)
   cascader: {},
   select: {},

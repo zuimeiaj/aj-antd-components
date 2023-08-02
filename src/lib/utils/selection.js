@@ -2,13 +2,10 @@
 export default class RowSelection {
   checked = {}
   rowKey = 'id'
-  type = 'checkbox'
-  // eslint-disable-next-line no-unused-vars
-  onSelectionChange = (selection) => {}
+  onSelectionChange = () => {}
 
   constructor({ selectedRows, rowKey, type, onChange, getCheckboxProps }) {
     if (rowKey) this.rowKey = rowKey
-    if (type) this.type = type
     if (onChange) this.onSelectionChange = onChange
     this.getCheckboxProps = getCheckboxProps
     this._initChecked(selectedRows)
@@ -83,7 +80,7 @@ export default class RowSelection {
   }
 
   clear() {
-    this.updateCheckedRows({})
+    this.updateCheckedRows([])
   }
 
   get() {
