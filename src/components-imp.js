@@ -54,4 +54,12 @@ export default {
       }
     },
   },
+  upload: {
+    getImageUrl() {
+      return '/test-img.webp'
+    },
+    uploadFile() {
+      return Promise.resolve('test-img.webp')
+    },
+  },
 }

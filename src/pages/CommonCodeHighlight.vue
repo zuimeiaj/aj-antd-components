@@ -45,13 +45,14 @@ export default {
     })
   },
   render() {
+    console.log(this.code)
     return (
       <Spin spinning={this.loading} class="preview-code">
         <div class={['wrapper', { show: this.show }]}>
           <h4 class="preview-code-title">{this.title}</h4>
           {this.code && (
-            <pre v-highlightjs>
-              <code class="tsx">{this.code}</code>
+            <pre v-highlightjs={this.code}>
+              <code class="tsx"></code>
             </pre>
           )}
         </div>

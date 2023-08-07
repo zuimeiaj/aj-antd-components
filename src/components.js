@@ -16,7 +16,7 @@ export const ComponentList = [
   'DateFormatPicker',
   'DateRangeFormatPicker',
   'NumberRangePicker',
-  'NumberStepInput',
+  'NumberStepPicker',
   'UploadFile',
   'TimePicker',
   'TableColumnBtn',
