@@ -7,11 +7,13 @@ import testDatepickerVue from './pages/test-datepicker.vue'
 import testNumberstepVue from './pages/test-numberstep.vue'
 import testCascaderVue from './pages/test-cascader.vue'
 import testSelectVue from './pages/test-select.vue'
+import testUploadVue from './pages/test-upload.vue'
 
 export default {
   data() {
     return {
       tabs: [
+        { name: 'Upload', component: testUploadVue },
         { name: 'Select', component: testSelectVue },
         { name: 'Tablelayout', component: testTableVue },
         { name: 'TablelayoutSingle', component: testTableSingleVue },
