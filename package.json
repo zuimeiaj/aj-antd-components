@@ -1,6 +1,6 @@
 {
   "name": "aj-antd-components",
-  "version": "1.1.2",
+  "version": "1.1.3",
   "description": "A component library based on vue2 and ant-design-vue",
   "main": "dist/index.js",
   "files": [
@@ -9,10 +9,7 @@
   ],
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "webpack --progress --stats-error-details",
-    "lint": "vue-cli-service lint",
-    "docs:dev": "vuepress dev docs",
-    "docs:build": "vuepress build docs"
+    "build": "webpack --progress --stats-error-details"
   },
   "dependencies": {
     "ant-design-vue": "^1.7.8",

@@ -80,6 +80,11 @@ function install(Vue, options = {}) {
   ]
   Object.keys(options).forEach((configKey) => {
     if (ComponentInterface[configKey]) {
+      if (['function', 'number', 'string', 'boolean'].includes(typeof ComponentInterface[configKey])) {
+        ComponentInterface[configKey] = options[configKey]
+        return
+      }
+
       ComponentInterface[configKey] = {
         ...ComponentInterface[configKey],
         ...options[configKey],
