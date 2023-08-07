@@ -55,8 +55,6 @@ export default {
     },
   },
   upload: {
-    token: () => '',
-
     // 显示时拼接路径
     getImageUrl(path) {
       return '/' + path
@@ -65,5 +63,13 @@ export default {
       // 返回相对路径
       return Promise.resolve('test-img.webp')
     },
+  },
+  richtext: () => {
+    return {
+      customUploadImg: (files, insertImg) => {
+        insertImg('/test-img.webp')
+      },
+      fontNames: ['微软雅黑'],
+    }
   },
 }
