@@ -1,6 +1,6 @@
 const glob = require('glob')
 const fs = require('fs')
-const list = glob.sync('./node_modules/aj-antd-components/lib/types/components/*.d.ts')
+const list = glob.sync('./node_modules/aj-antd-components/dist/utils/*.d.ts')
 const demos = glob.sync('./src/pages/**/*.demo.vue')
 function writeToPublic(list) {
   list.forEach((item) => {

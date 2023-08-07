@@ -1,18 +1,23 @@
 <script>
-import { FormTableLayoutFields } from 'aj-antd-components'
-
+import { NumberStepInput } from 'aj-antd-components'
+import { Form } from 'ant-design-vue'
+import CommonCodeHighlightVue from '../CommonCodeHighlight.vue'
 export default {
-  render() {
-    const handleSearch = (value) => {
-      console.log(value)
+  data() {
+    return {
+      form: Form.createForm(this),
     }
-    const fields = [
-      { label: '条件', field: 'a' },
-      { label: '条件1', field: 'a1' },
-      { label: '条件2', field: 'a2' },
-      { label: '条件3', field: 'a3' },
-    ]
-    return <FormTableLayoutFields fields={fields} onSearch={handleSearch} onReset={handleSearch} />
+  },
+  render() {
+    let values = this.form.getFieldsValue()
+    return (
+      <Form form={this.form}>
+        <CommonCodeHighlightVue value={JSON.stringify(values, null, 2)}></CommonCodeHighlightVue>
+        <Form.Item label="number-step">
+          <NumberStepInput max={1000000} min={0} v-decorator={['value1']} />
+        </Form.Item>
+      </Form>
+    )
   },
 }
 </script>
