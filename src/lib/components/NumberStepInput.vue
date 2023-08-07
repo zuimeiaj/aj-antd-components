@@ -57,7 +57,7 @@ export default {
         <Button
           class="step-btn-ele"
           disabled={this.value >= this.max || this.disabled}
-          onClick={() => this.notifyChange(Number(this.value) + this.step)}
+          onClick={() => this.notifyChange((Number(this.value) || 0) + this.step)}
           icon="plus"
         />
       </span>

@@ -1,5 +1,5 @@
 <script>
-import { Select, Spin } from 'ant-design-vue'
+import { Checkbox, Radio, Select, Spin } from 'ant-design-vue'
 import { mapGetters } from 'vuex'
 import ComponentInterface from './Interface'
 // 支持 dataSource ，handler(data),enum 三种数据源
@@ -9,7 +9,7 @@ import ComponentInterface from './Interface'
 export default {
   name: 'DataSelect',
   props: {
-    // 远程拉去数据函数实现名称， 例如：user ,需要实现接口 fetchUser(send):Promise<[{label:string;value:string;}]>
+    // 远程拉去数据函数实现名称， 例如：user ,需要实现接口 interface.select[handler](send):Promise<[{label:string;value:string;}]>
     handler: String,
     // select 组件自带属性，会原封不动的传给select组件
     params: Object,
@@ -30,6 +30,9 @@ export default {
       type: Boolean,
       default: false,
     },
+    placeholder: String,
+    enum: String, // store.getters.dictionaries.xx_enum
+    displayStyle: String, // radio | select | checkbox
   },
   data() {
     return {
@@ -39,45 +42,37 @@ export default {
   },
   computed: {
     ...mapGetters(['dictionaries']),
-    selectOptions() {
-      if (Array.isArray(this.dataSource)) {
-        return this.dataSource
-      }
-      if (typeof this.handler === 'string') {
-        return this.options
-      }
-
-      if (this.enum) {
-        let dict = this.dictionaries || {}
-        return dict[this.enum + '_array'] || []
-      }
-      return []
-    },
   },
   watch: {
+    // 重新获取options
     data(value) {
       this.fetchSource(value)
     },
-    dataSource(v) {
-      if (Array.isArray(v)) {
-        this.options = v
-      }
+    // 直接传递options
+    dataSource() {
+      this.fetchSource(this.data)
     },
   },
   created() {
-    if (Array.isArray(this.dataSource)) {
-      this.options = this.dataSource
-    } else {
-      this.fetchSource(this.data)
-    }
+    this.fetchSource(this.data)
   },
   methods: {
     async fetchSource(send) {
+      let options = []
       try {
-        this.loading = true
-        let options = await ComponentInterface.select[
-          'fetch' + this.handler.slice(0, 1).toUpperCase() + this.handler.slice(1)
-        ](send)
+        // data source
+        if (Array.isArray(this.dataSource)) {
+          options = this.dataSource.slice()
+          // getters.dictionaries[enum]
+        } else if (this.enum) {
+          let dict = this.dictionaries || {}
+          options = dict[this.enum + '_array'] || []
+          // interface impl
+        } else if (this.handler) {
+          this.loading = true
+          options = await ComponentInterface.select[this.handler](send)
+        }
+
         if (this.params && this.params.defaultFirstChecked && options.length > 0) {
           this.handleChange(options[0].value)
         }
@@ -88,10 +83,9 @@ export default {
           options.push(this.lastOption)
         }
         this.options = options
-      } catch (e) {
-        console.error(e)
+      } finally {
+        this.loading = false
       }
-      this.loading = false
     },
     notify(value, items) {
       // v-decorator antd 表单需要change事件
@@ -102,11 +96,11 @@ export default {
     handleChange(value) {
       // 多选
       if (Array.isArray(value)) {
-        let items = this.selectOptions.filter((item) => value.includes(item.value))
+        let items = this.options.filter((item) => value.includes(item.value))
         this.notify(this.result === 'array' ? [value, items.map((item) => item.label)] : value, items)
       } else {
         // 单选
-        let item = this.selectOptions.find((item) => item.value == value)
+        let item = this.options.find((item) => item.value == value)
         this.notify(this.result === 'array' ? [value, item ? item.label : void 0] : value, item)
       }
     },
@@ -125,7 +119,49 @@ export default {
     Object.assign(ComponentInterface.select, handlerImpOption)
   },
   render() {
+    // 组件原始属性
     const props = this.params || {}
+    if (this.displayStyle === 'radio') {
+      return (
+        <Radio.Group
+          onChange={(e) => this.handleChange(e.target.value)}
+          value={this.getValue()}
+          style="width:100%"
+          options={this.options}
+          props={props}
+        ></Radio.Group>
+      )
+    }
+    if (this.displayStyle === 'checkbox') {
+      return (
+        <Checkbox.Group
+          onChange={(values) => this.handleChange(values)}
+          value={this.getValue() || []}
+          style="width:100%"
+          options={this.options}
+          props={props}
+        ></Checkbox.Group>
+      )
+    }
+    if (this.displayStyle == 'button') {
+      return (
+        <Radio.Group
+          onChange={(e) => this.handleChange(e.target.value)}
+          value={this.getValue()}
+          style="width:100%"
+          props={props}
+        >
+          {this.options.map((item) => {
+            return (
+              <Radio.Button value={item.value} key={item.value}>
+                {item.label}
+              </Radio.Button>
+            )
+          })}
+        </Radio.Group>
+      )
+    }
+
     return (
       <Spin spinning={this.loading}>
         <Select
@@ -136,6 +172,7 @@ export default {
           value={this.getValue()}
           onChange={this.handleChange}
           allowClear
+          placeholder={this.placeholder}
           props={props}
         >
           {this.options.map((item) => {

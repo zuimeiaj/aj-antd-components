@@ -1,6 +1,7 @@
 <script>
 import { DatePicker } from 'ant-design-vue'
 import moment from 'moment'
+import ComponentInterface from './Interface'
 const FORMAT = 'YYYY-MM-DD HH:mm:ss'
 const FORMAT_DATE = 'YYYY-MM-DD'
 
@@ -21,7 +22,7 @@ export default {
     },
     iso: {
       type: Boolean,
-      default: true,
+      default: ComponentInterface.time.iso,
     },
     format: String,
   },
@@ -40,9 +41,12 @@ export default {
       const start = value[0]
       const end = value[1]
       if (start && end) {
-        this.$emit('change', this.getValue(value))
+        let val = this.getValue(value)
+        this.$emit('change', val)
+        this.$emit('input', val)
       } else {
         this.$emit('change', [])
+        this.$emit('input', [])
       }
     },
 
@@ -63,6 +67,7 @@ export default {
     },
 
     getValue(value) {
+      if (!value) return
       const start = value[0]
       const end = value[1]
       if (this.showTime) {
@@ -76,6 +81,12 @@ export default {
         return [this.getFormatValue(start, FORMAT_DATE), this.getFormatValue(end, FORMAT_DATE)]
       }
     },
+    getDisplayValue() {
+      if (this.value && this.value[0] && this.value[1] && this.format) {
+        return [moment(this.value[0], this.getFormat()), moment(this.value[1], this.getFormat())]
+      }
+      return this.value
+    },
   },
   render() {
     return (
@@ -84,7 +95,7 @@ export default {
         style="width:100%"
         format={this.getFormat()}
         showTime={this.showTime}
-        value={this.value}
+        value={this.getDisplayValue()}
         onChange={this.handleChange}
       />
     )

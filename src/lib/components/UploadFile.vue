@@ -137,7 +137,7 @@ export default {
       this.$emit('input', value)
     },
     getImageUrl(imageUrl) {
-      return ComponentInterface.table.getImageUrl(imageUrl)
+      return ComponentInterface.upload.getImageUrl(imageUrl)
     },
   },
   created() {

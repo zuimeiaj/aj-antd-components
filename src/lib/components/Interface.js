@@ -1,4 +1,7 @@
 const ComponentInterface = {
+  time: {
+    iso: false,
+  },
   tablelayout: {
     clearOnReset: true,
   },

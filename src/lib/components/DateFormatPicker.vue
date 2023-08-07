@@ -1,5 +1,7 @@
 <script>
 import { DatePicker } from 'ant-design-vue'
+import ComponentInterface from './Interface'
+import moment from 'moment'
 const DATE = 'YYYY-MM-DD'
 const MONTH = 'YYYY-MM'
 const DATETIME = 'YYYY-MM-DD HH:mm:ss'
@@ -22,14 +24,20 @@ export default {
       default: 'date',
     },
     format: String,
-    iso: String,
+    iso: {
+      type: Boolean,
+      default: ComponentInterface.time.iso,
+    },
   },
   methods: {
     handleChange(value) {
       if (value) {
-        this.$emit('change', this.getValue(value))
+        let val = this.getValue(value)
+        this.$emit('change', val)
+        this.$emit('input', val)
       } else {
-        this.$emit('change', undefined)
+        this.$emit('change')
+        this.$emit('input')
       }
     },
     getValue(value) {
@@ -65,7 +73,7 @@ export default {
     },
 
     getStringValue() {
-      return this.value ? String(this.value) : this.value
+      return this.value ? moment(this.value, this.getFormat()) : this.value
     },
   },
   render() {

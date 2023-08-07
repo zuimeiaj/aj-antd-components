@@ -136,7 +136,7 @@ export default {
         // 去掉多个0开始的数
         if (this.trimStartZero) {
           if (symbol) this.text = this.text.replace(/^-0{2,}/, '-0')
-          else this.text = this.text.replace(/^0{2,}/, '0')
+          else this.text = this.text.replace(/^0{2,}/, '')
         }
 
         this.notifyChange(value)
