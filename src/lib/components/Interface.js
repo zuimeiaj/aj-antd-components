@@ -10,8 +10,6 @@ const ComponentInterface = {
   select: {},
   // 上传配置
   upload: {
-    uploadUrl: '',
-    token: () => '',
     getImageUrl: (imageUrl) => {
       let url = ''
       if (imageUrl && imageUrl.startsWith('http')) {
@@ -25,6 +23,20 @@ const ComponentInterface = {
     uploadFile: () => {
       return
     },
+  },
+  richtext: () => {
+    return {
+      fileFieldName: 'file',
+      uploadUrl: '',
+      headers: {},
+      hooks: {
+        customInsert: (insertImg, result) => {
+          // 插入图片
+          insertImg(result)
+        },
+      },
+      fontNames: ['宋体', '微软雅黑', 'Arial', 'Tahoma', 'Verdana'],
+    }
   },
   // 表格配置
   table: {

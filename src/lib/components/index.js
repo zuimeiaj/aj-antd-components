@@ -78,7 +78,14 @@ function install(Vue, options = {}) {
     CountDown,
     Clipboard,
   ]
-  Object.assign(ComponentInterface, options)
+  Object.keys(options).forEach((configKey) => {
+    if (ComponentInterface[configKey]) {
+      ComponentInterface[configKey] = {
+        ...ComponentInterface[configKey],
+        ...options[configKey],
+      }
+    }
+  })
   components.forEach((item) => {
     Vue.component(item.name, item)
   })

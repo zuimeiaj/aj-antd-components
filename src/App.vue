@@ -8,11 +8,13 @@ import testNumberstepVue from './pages/test-numberstep.vue'
 import testCascaderVue from './pages/test-cascader.vue'
 import testSelectVue from './pages/test-select.vue'
 import testUploadVue from './pages/test-upload.vue'
+import testRichtextVue from './pages/test-richtext.vue'
 
 export default {
   data() {
     return {
       tabs: [
+        { name: 'Richtext', component: testRichtextVue },
         { name: 'Upload', component: testUploadVue },
         { name: 'Select', component: testSelectVue },
         { name: 'Tablelayout', component: testTableVue },

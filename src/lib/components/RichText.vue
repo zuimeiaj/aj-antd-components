@@ -10,6 +10,7 @@ import ComponentInterface from './Interface'
 export default {
   name: 'RichText',
   props: {
+    value: String,
     limitSize: {
       type: Number,
       default: 10 * 1024 * 1024, // 10M,
@@ -30,20 +31,12 @@ export default {
   mounted() {
     const editor = new Editor(this.$refs.editor)
     const { value } = this.$props
+    const config = ComponentInterface.richtext()
     editor.customConfig = {
-      uploadImgServer: ComponentInterface.upload.uploadUrl,
       uploadImgMaxSize: this.limitSize,
       zIndex: this.zIndex,
-      uploadFileName: ComponentInterface.upload.fileFieldName || 'file',
-      uploadImgHeaders: {
-        [ComponentInterface.upload.tokenField || 'token']: ComponentInterface.upload.toke(),
-      },
-      uploadImgHooks: {
-        customInsert: (insertImg, result) => {
-          ComponentInterface.upload.uploadSuccess(insertImg, result)
-        },
-      },
-      fontNames: ['宋体', '微软雅黑', 'Arial', 'Tahoma', 'Verdana'],
+      customUploadImg: config.customUploadImg,
+      fontNames: config.fontNames,
       onchange: debounce((html) => {
         this.initialValue = html
         this.$emit('change', html)
