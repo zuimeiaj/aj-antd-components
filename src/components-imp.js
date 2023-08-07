@@ -2,7 +2,7 @@ import { CommonUtils } from 'aj-antd-components'
 
 export default {
   select: {
-    fetchDepartment: async () => {
+    department: async () => {
       await CommonUtils.waitForSeconds(0.2)
       return [
         { label: '总裁办', value: '1' },
@@ -12,7 +12,7 @@ export default {
     },
   },
   cascader: {
-    fetchDepartment: async () => {
+    department: async () => {
       await CommonUtils.waitForSeconds(0.2)
       return [
         {
