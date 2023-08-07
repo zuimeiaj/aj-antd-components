@@ -17,14 +17,20 @@ export default {
         <Form.Item label="dragger">
           <UploadFile layout="dragger" v-decorator={['dragger']} />
         </Form.Item>
-        <Form.Item label="button">
-          <UploadFile iso={true} v-decorator={['button']} />
+        <Form.Item label="button(accept='.xlsx')">
+          <UploadFile
+            accept=".doc,.docx,.xlsx,.pptx,.xls,.ppt"
+            layout="button"
+            listType="text"
+            iso={true}
+            v-decorator={['button']}
+          />
         </Form.Item>
         <Form.Item label="card">
           <UploadFile v-decorator={['card']} />
         </Form.Item>
         <Form.Item label="multiple">
-          <UploadFile v-decorator={['multiple']} />
+          <UploadFile limit={20} v-decorator={['multiple']} />
         </Form.Item>
       </Form>
     )

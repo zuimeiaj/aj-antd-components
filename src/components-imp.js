@@ -55,10 +55,14 @@ export default {
     },
   },
   upload: {
-    getImageUrl() {
-      return '/test-img.webp'
+    token: () => '',
+
+    // 显示时拼接路径
+    getImageUrl(path) {
+      return '/' + path
     },
-    uploadFile() {
+    uploadFile: () => {
+      // 返回相对路径
       return Promise.resolve('test-img.webp')
     },
   },

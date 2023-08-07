@@ -18,7 +18,6 @@ export const ComponentList = [
   'NumberRangePicker',
   'NumberStepPicker',
   'UploadFile',
-  'TimePicker',
   'TableColumnBtn',
   'RichText',
   'RawText',
