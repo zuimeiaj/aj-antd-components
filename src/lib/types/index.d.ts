@@ -36,6 +36,7 @@ import { PercentageUtil } from './utils/percentage'
 import { RowSelection } from './utils/row-selection'
 import { ValidatorUtil } from './utils/validator'
 import { install } from './install'
+import { Component } from 'vue'
 
 export {
   install,
@@ -76,7 +77,7 @@ export {
   ValidatorUtil,
 }
 
-declare module 'vue' {
+declare module 'aj-antd-components' {
   export interface GlobalComponents {
     FormLayout: FormLayout
     FormTableLayout: FormTableLayout

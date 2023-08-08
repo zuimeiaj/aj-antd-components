@@ -5,6 +5,7 @@ import Vue, { Component } from 'vue'
 export declare class DataTable extends Vue {
   // antd 自身的属性
   scroll: { x: number; y: number }
+  // 配置RowSelection工具两行代码就可以了
   rowSelection: TableRowSelection
   columns: Column[]
   bordered: boolean
@@ -20,6 +21,7 @@ export declare class DataTable extends Vue {
   // 请求前可以对发送的参数处理，返回false不会请求
   fetchBefore(send: object): object | boolean
   // table的底部是否固定，始终保持分页控件在页面底部
+  // 当页面有多个DataTable 组件时不能使用
   pageFixed: boolean
   // 给定一个table的唯一名称，可以通过DataTable.get(name)获取实例
   name: String

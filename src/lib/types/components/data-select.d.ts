@@ -11,7 +11,9 @@ declare type SelectValue = DataSelectValue | ValueLabelArray
 export declare class DataSelect extends FormItem<SelectValue> {
   // 远程拉去数据函数实现名称， 例如：user ,需要实现接口 fetchUser(send):Promise<[{label:string;value:string;}]>
   handler: string
-  // select 组件自带属性，会原封不动的传给select组件
+  // 对应store.getters.dictionaries中的key
+  enum: string
+  // select 组件自带属性，会原封不动的传给antd的select组件
   params: object
   // value值，result为true是，是一个数组[value,label]，其他为 对象中的value。响应式
   // 请求接口需要的请求参数，如果变化会重新请求
