@@ -22,7 +22,8 @@ export default {
         <Layout id="app" class="app-layout">
           <Layout.Header class="app-header" style={{ background: '#ffffff', padding: '0 15px' }}>
             <h1>
-              <img height="40px" class="appicon" src="/favicon.ico" /> 一套基于Ant-design-vue的组件库
+              <img height="40px" class="appicon" src="/favicon.ico" />
+              <span class="gutter-left"> 一套基于Ant-design-vue（v1.7.8）的组件库(vue2 JSX版，json配置)</span>
             </h1>
           </Layout.Header>
           <Layout>

@@ -8,7 +8,11 @@ export default {
   },
   render() {
     return (
-      <CommonPageVue title={'DataSelect'} description={'使用外部数据源的下拉选择'} class="app-page gutter">
+      <CommonPageVue
+        title={'DataSelect'}
+        description={'支持多种数据源（store.getters.dictionaries,handler,dataSource）、支持checkbox、radio、select类型'}
+        class="app-page gutter"
+      >
         <Demo />
         <CommonCodeHighlightVue path="dataselect.demo.vue" />
         <CommonCodeHighlightVue title="Props" path="data-select.d.ts"></CommonCodeHighlightVue>

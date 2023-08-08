@@ -1,4 +1,5 @@
 export const ComponentList = [
+  'Guide',
   'FormLayout',
   'FormTableLayout',
   'FormTableLayoutActions',
