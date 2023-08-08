@@ -6,7 +6,7 @@ const router = new Router({
   base: process.env.BASE_URL,
   routes: [
     { path: '/', redirect: '/guide' },
-    ComponentList.map((item) => {
+    ...ComponentList.map((item) => {
       return {
         path: '/' + item.toLowerCase(),
         component: () => import('@/pages/' + item.toLowerCase() + '.vue'),
