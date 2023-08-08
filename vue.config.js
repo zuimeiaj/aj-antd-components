@@ -1,5 +1,6 @@
 const { defineConfig } = require('@vue/cli-service')
 module.exports = defineConfig({
+  outputDir: 'biz',
   publicPath: process.env.NODE_ENV === 'production' ? '/biz/' : '/',
   css: {
     loaderOptions: {
