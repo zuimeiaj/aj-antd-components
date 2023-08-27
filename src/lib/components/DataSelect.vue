@@ -2,6 +2,7 @@
 import { Checkbox, Radio, Select, Spin } from 'ant-design-vue'
 import { mapGetters } from 'vuex'
 import ComponentInterface from './Interface'
+import debounce from 'debounce'
 // 支持 dataSource ，handler(data),enum 三种数据源
 // dataSource 为直接传入数组
 // handler 通过DataSelect.use()注入 接口实现对象
@@ -54,11 +55,21 @@ export default {
     },
   },
   created() {
+    this.pageIndex = 0
+    this.pageSize = 10
+    this.totalCount = 0
+    this.noValueOptions = []
+    this.valueOptions = []
+    this.filteredOptions = []
+    this.originalOptions = []
+
+    this.handleScroll = debounce(this.handleScroll, 200)
     this.fetchSource(this.data)
   },
   methods: {
     async fetchSource(send) {
       let options = []
+      this.pageIndex = 1
       try {
         // data source
         if (Array.isArray(this.dataSource)) {
@@ -82,10 +93,35 @@ export default {
         if (this.lastOption) {
           options.push(this.lastOption)
         }
-        this.options = options
+
+        // 原始数据缓存
+        this.originalOptions = options
+        // 已过滤的数据
+        this.filteredOptions = options
+        this.totalCount = options.length
+        this.initLocalOptions()
       } finally {
         this.loading = false
       }
+    },
+    initLocalOptions() {
+      // 将已选择的值item抽离出来
+      let array = this.getValue()
+      array = Array.isArray(array) ? array : [array]
+      let values = []
+      this.noValueOptions = this.originalOptions.filter((item) => {
+        if (array.includes(item.value)) {
+          values.push(item)
+          return false
+        }
+        return true
+      })
+      let valueSortMap = {}
+      array.forEach((item, index) => {
+        valueSortMap[item.value] = index
+      })
+      this.valueOptions = values.sort((a, b) => valueSortMap[a] - valueSortMap[b])
+      this.options = values.concat(this.noValueOptions.slice(0, this.pageSize))
     },
     notify(value, items) {
       // v-decorator antd 表单需要change事件
@@ -103,6 +139,9 @@ export default {
         let item = this.options.find((item) => item.value == value)
         this.notify(this.result === 'array' ? [value, item ? item.label : void 0] : value, item)
       }
+      this.$nextTick(() => {
+        this.initLocalOptions()
+      })
     },
     getValue() {
       if (this.result === 'array') {
@@ -113,11 +152,28 @@ export default {
     handleFilter(value, option) {
       return option.componentOptions.children[0].text.toLowerCase().indexOf(value.toLowerCase()) >= 0
     },
+    handleScroll(e) {
+      if (
+        e.target.scrollTop == Math.ceil(e.target.scrollHeight - e.target.offsetHeight) &&
+        this.pageIndex * this.pageSize < this.totalCount
+      ) {
+        let size = (this.pageIndex += 1) * this.pageSize
+        this.options = this.valueOptions.concat(this.filteredOptions.slice(0, size))
+      }
+    },
+    handleSearch(value) {
+      this.pageIndex = 1
+      this.filteredOptions = value
+        ? this.noValueOptions.filter((item) => item.label.indexOf(value) > -1)
+        : this.noValueOptions
+      this.totalCount = this.filteredOptions.length
+      this.options = this.valueOptions.concat(this.filteredOptions.slice(0, this.pageSize))
+    },
   },
-  // 使用DataSelect.use(map<{key:function}>) 注入接口实现
   use(handlerImpOption = {}) {
     Object.assign(ComponentInterface.select, handlerImpOption)
   },
+
   render() {
     // 组件原始属性
     const props = this.params || {}
@@ -168,10 +224,12 @@ export default {
           style="width:100%"
           showSearch={true}
           disabled={this.disabled}
-          filterOption={this.handleFilter}
           value={this.getValue()}
           onChange={this.handleChange}
           allowClear
+          filterOption={false}
+          onSearch={this.handleSearch}
+          onPopupScroll={this.handleScroll}
           placeholder={this.placeholder}
           props={props}
         >
