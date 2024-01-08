@@ -107,7 +107,7 @@ export default {
     initLocalOptions() {
       // 将已选择的值item抽离出来
       let array = this.getValue()
-      array = Array.isArray(array) ? array : [array]
+      array = (Array.isArray(array) ? array : [array]).filter((item) => item !== undefined)
       let values = []
       this.noValueOptions = this.originalOptions.filter((item) => {
         if (array.includes(item.value)) {
