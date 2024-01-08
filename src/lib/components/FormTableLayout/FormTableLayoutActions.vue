@@ -1,5 +1,6 @@
 <script>
 import { Button } from 'ant-design-vue'
+import ComponentInterface from '../Interface'
 export default {
   name: 'FormTableLayoutActions',
   props: {
@@ -10,7 +11,24 @@ export default {
       },
     },
   },
+  watch: {
+    actions() {
+      this.customRender()
+    },
+  },
+  methods: {
+    customRender() {
+      ComponentInterface.tablelayout.customRenderActions?.(this.actions)
+    },
+  },
+  activated() {
+    this.customRender()
+  },
+  created() {
+    this.customRender()
+  },
   render() {
+    if (ComponentInterface.tablelayout.customRenderActions) return null
     return (
       <div class="formtable-layout-actions">
         {this.actions.map((item) => {
