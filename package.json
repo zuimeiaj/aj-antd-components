@@ -1,6 +1,6 @@
 {
   "name": "aj-antd-components",
-  "version": "1.1.5",
+  "version": "1.1.6",
   "description": "A component library based on vue2 and ant-design-vue",
   "main": "dist/index.js",
   "files": [
@@ -24,7 +24,7 @@
     "vue": "^2.6.14",
     "vue-clipboard2": "^0.3.3",
     "vuex": "^3.1.1",
-    "wangeditor": "^3.1.1"
+    "wangeditor": "^4.7.15"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",

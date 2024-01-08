@@ -102,7 +102,6 @@ export default {
     },
   },
   render() {
-    console.log(this.getValue())
     return (
       <Cascader
         showSearch

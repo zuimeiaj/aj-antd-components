@@ -32,16 +32,17 @@ export default {
     const editor = new Editor(this.$refs.editor)
     const { value } = this.$props
     const config = ComponentInterface.richtext()
-    editor.customConfig = {
-      uploadImgMaxSize: this.limitSize,
-      zIndex: this.zIndex,
-      customUploadImg: config.customUploadImg,
-      fontNames: config.fontNames,
-      onchange: debounce((html) => {
-        this.initialValue = html
-        this.$emit('change', html)
-      }, 200),
-    }
+
+    editor.config.uploadImgMaxSize = this.limitSize
+    editor.config.zIndex = this.zIndex
+
+    if (config.customUploadImg) editor.config.customUploadImg = config.customUploadImg
+    if (config.fontNames) editor.config.fontNames = config.fontNames
+
+    editor.config.onchange = debounce((html) => {
+      this.initialValue = html
+      this.$emit('change', html)
+    }, 200)
     editor.create()
     editor.txt.html(value)
     this.editor = editor
