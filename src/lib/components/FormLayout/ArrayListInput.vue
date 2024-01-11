@@ -31,9 +31,9 @@ export default {
   },
   computed: {
     forms() {
-      return this.value.map((item) => {
+      return this.value.map((item, index) => {
         return {
-          columns: this.list(item),
+          columns: this.list(item, index),
           key: item[this.uidkey] || this.getIdKey(),
         }
       })
