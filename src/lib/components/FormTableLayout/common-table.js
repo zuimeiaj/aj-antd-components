@@ -96,6 +96,10 @@ export default {
       // 当前tab的搜索表单，query
       let values = { ...this.getDefaultValue(), ...(this.searchs[this.activeKey] || {}), ...this.query }
       if (current && current.field) values[current.field] = current.value
+      // 对某个tab的查询对象进行合并
+      if (current && current.query) {
+        values = { ...values, ...current.query }
+      }
 
       // 更新
       this.searchValues = updateArrayItem(this.searchValues, this.activeKey, () => values)
