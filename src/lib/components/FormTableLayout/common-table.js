@@ -51,7 +51,8 @@ export default {
   },
   computed: {
     tabActions() {
-      return this.tables.length > 0 ? this.tables[this.activeKey].actions || [] : this.actions.filter(this.matchTab)
+      let tables = this.getTables()
+      return tables.length > 0 ? tables[this.activeKey].actions || [] : this.actions.filter(this.matchTab)
     },
     commonFields() {
       return this.fields.filter((item) => !('tab' in item))
