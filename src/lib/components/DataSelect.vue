@@ -67,6 +67,9 @@ export default {
     this.fetchSource(this.data)
   },
   methods: {
+    handleFocus() {
+      this.fetchSource(this.data)
+    },
     async fetchSource(send) {
       let options = []
       this.pageIndex = 1
@@ -221,6 +224,7 @@ export default {
     return (
       <Spin spinning={this.loading}>
         <Select
+          onFocus={this.handleFocus}
           style="width:100%"
           showSearch={true}
           disabled={this.disabled}
