@@ -62,7 +62,6 @@ export default {
     this.valueOptions = []
     this.filteredOptions = []
     this.originalOptions = []
-
     this.handleScroll = debounce(this.handleScroll, 200)
     this.fetchSource(this.data)
   },
@@ -179,7 +178,7 @@ export default {
 
   render() {
     // 组件原始属性
-    const props = this.params || {}
+    const props = this.params
     if (this.displayStyle === 'radio') {
       return (
         <Radio.Group
@@ -222,30 +221,28 @@ export default {
     }
 
     return (
-      <Spin spinning={this.loading}>
-        <Select
-          onFocus={this.handleFocus}
-          style="width:100%"
-          showSearch={true}
-          disabled={this.disabled}
-          value={this.getValue()}
-          onChange={this.handleChange}
-          allowClear
-          filterOption={false}
-          onSearch={this.handleSearch}
-          onPopupScroll={this.handleScroll}
-          placeholder={this.placeholder}
-          props={props}
-        >
-          {this.options.map((item) => {
-            return (
-              <Select.Option key={item.value} value={item.value}>
-                {item.label}
-              </Select.Option>
-            )
-          })}
-        </Select>
-      </Spin>
+      <Select
+        onFocus={this.handleFocus}
+        style="width:100%"
+        showSearch={true}
+        disabled={this.disabled}
+        value={this.getValue()}
+        onChange={this.handleChange}
+        allowClear
+        filterOption={false}
+        onSearch={this.handleSearch}
+        onPopupScroll={this.handleScroll}
+        placeholder={this.placeholder}
+        props={props}
+      >
+        {this.options.map((item) => {
+          return (
+            <Select.Option key={item.value} value={item.value}>
+              {item.label}
+            </Select.Option>
+          )
+        })}
+      </Select>
     )
   },
 }

@@ -17,18 +17,23 @@ export default {
   },
   created() {
     ComponentInterface.select.department = () => {
-      return Promise.resolve(
-        new Array(100).fill(0).map((item, index) => {
-          return { label: 'label-' + index, value: index }
-        })
-      )
+      return new Promise((resolve) => {
+        console.log('fetch')
+        setTimeout(() => {
+          resolve(
+            new Array(100).fill(0).map((item, index) => {
+              return { label: 'label-' + index, value: index }
+            })
+          )
+        }, 800)
+      })
     }
   },
   render() {
     return (
       <div>
         {this.value}
-        <DataSelectVue params={{ mode: 'multiple' }} v-model={this.value} handler="department" />
+        <DataSelectVue v-model={this.value} handler="department" />
       </div>
     )
   },
