@@ -97,6 +97,14 @@ export default class RowSelection {
     return selection
   }
 
+  remove(id) {
+    if (!this.checked[id]) return
+
+    this.checked[id].deleted = 1
+    this.notifyChange()
+    this.update()
+  }
+
   static create(vm, ops) {
     let selection = new RowSelection(ops)
     selection.vm = vm
