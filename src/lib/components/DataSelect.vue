@@ -34,6 +34,10 @@ export default {
     placeholder: String,
     enum: String, // store.getters.dictionaries.xx_enum
     displayStyle: String, // radio | select | checkbox
+    filter: {
+      type: Function,
+      default: () => true,
+    },
   },
   data() {
     return {
@@ -185,7 +189,7 @@ export default {
           onChange={(e) => this.handleChange(e.target.value)}
           value={this.getValue()}
           style="width:100%"
-          options={this.options}
+          options={this.options.filter(this.filter)}
           props={props}
         ></Radio.Group>
       )
@@ -196,7 +200,7 @@ export default {
           onChange={(values) => this.handleChange(values)}
           value={this.getValue() || []}
           style="width:100%"
-          options={this.options}
+          options={this.options.filter(this.filter)}
           props={props}
         ></Checkbox.Group>
       )
@@ -209,7 +213,7 @@ export default {
           style="width:100%"
           props={props}
         >
-          {this.options.map((item) => {
+          {this.options.filter(this.filter).map((item) => {
             return (
               <Radio.Button value={item.value} key={item.value}>
                 {item.label}
@@ -235,7 +239,7 @@ export default {
         placeholder={this.placeholder}
         props={props}
       >
-        {this.options.map((item) => {
+        {this.options.filter(this.filter).map((item) => {
           return (
             <Select.Option key={item.value} value={item.value}>
               {item.label}
