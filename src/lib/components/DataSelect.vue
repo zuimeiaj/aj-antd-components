@@ -31,6 +31,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    pageSize: {
+      type: Number,
+      default: 50,
+    },
     placeholder: String,
     enum: String, // store.getters.dictionaries.xx_enum
     displayStyle: String, // radio | select | checkbox
@@ -60,13 +64,12 @@ export default {
   },
   created() {
     this.pageIndex = 0
-    this.pageSize = 10
     this.totalCount = 0
     this.noValueOptions = []
     this.valueOptions = []
     this.filteredOptions = []
     this.originalOptions = []
-    this.handleScroll = debounce(this.handleScroll, 200)
+    // this.handleScroll = debounce(this.handleScroll, 200)
     this.fetchSource(this.data)
   },
   methods: {
@@ -159,8 +162,9 @@ export default {
       return option.componentOptions.children[0].text.toLowerCase().indexOf(value.toLowerCase()) >= 0
     },
     handleScroll(e) {
+      console.log('scroll from bottom', e.target.scrollHeight - e.target.offsetHeight - e.target.scrollTop)
       if (
-        e.target.scrollTop == Math.ceil(e.target.scrollHeight - e.target.offsetHeight) &&
+        Math.ceil(e.target.scrollHeight - e.target.offsetHeight) - e.target.scrollTop <= 50 &&
         this.pageIndex * this.pageSize < this.totalCount
       ) {
         let size = (this.pageIndex += 1) * this.pageSize

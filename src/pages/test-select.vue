@@ -25,7 +25,7 @@ export default {
               return { label: 'label-' + index, value: index }
             })
           )
-        }, 800)
+        }, 86)
       })
     }
   },
