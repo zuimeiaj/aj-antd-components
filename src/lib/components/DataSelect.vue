@@ -245,7 +245,7 @@ export default {
       >
         {this.options.filter(this.filter).map((item) => {
           return (
-            <Select.Option key={item.value} value={item.value}>
+            <Select.Option title={item.label} key={item.value} value={item.value}>
               {item.label}
             </Select.Option>
           )
