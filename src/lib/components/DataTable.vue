@@ -10,6 +10,7 @@ export default {
   props: {
     scroll: Object,
     rowSelection: Object,
+    dataSource: Array,
     columns: {
       type: Array,
       default: () => [],
@@ -59,12 +60,25 @@ export default {
     scrollOption() {
       return { ...(this.scroll || {}), ...this.scrollOption1 }
     },
+    localColumns() {
+      return [
+        {
+          title: '序号',
+          customRender: (item, record, index) => {
+            return this.send.limit * (this.send.page - 1) + (index + 1)
+          },
+        },
+      ].concat(this.columns)
+    },
   },
   watch: {
     params(value) {
       const { limit, orderBy } = this.send
       this.send = { ...(value || {}), limit, page: value._update ? this.send.page : 1, orderBy }
       this.update()
+    },
+    dataSource(v) {
+      this.data = v
     },
   },
   methods: {
@@ -146,6 +160,7 @@ export default {
       this.setScrollOption()
     },
     handleChange({ pageSize, current }, filter, sorter) {
+      if (this.dataSource) return
       if (sorter.columnKey) {
         // 对排序字段的设置规则为[field: "value asc|desc"]
         this.send.orderBy = ComponentInterface.table.orderBy(sorter)
@@ -168,15 +183,21 @@ export default {
     if (this.name) {
       DataTableIns[this.name] = this
     }
+
     // 加载数据
-    this.update()
+    if (this.dataSource) {
+      this.data = this.dataSource
+    } else {
+      this.update()
+    }
+
     this.pagination = {
       pageSize: this.send.limit,
       size: 'small',
       total: this.total,
       showSizeChanger: true,
       showQuickJumper: true,
-      hideOnSinglePage: true,
+      hideOnSinglePage: false,
       showTotal: this.showTotal,
     }
   },
@@ -201,7 +222,7 @@ export default {
         size="middle"
         onChange={this.handleChange}
         dataSource={this.data}
-        columns={this.columns}
+        columns={this.localColumns}
       />
     )
   },
