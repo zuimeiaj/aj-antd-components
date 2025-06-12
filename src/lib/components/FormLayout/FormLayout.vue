@@ -161,20 +161,27 @@ export default {
       })
     },
     // 对span进行按行拆分，满24 将包裹一个Row组件，确保每一行都是一个Row组件包裹，避免col高低不同造成布局错乱
-    getRowColumns(formColumns) {
+    getRowColumns(formColumns, formData) {
       const rows = []
       let columns = []
       let col = 0
-      formColumns.forEach((item) => {
-        let span = item.span || 12
-        col = col + span
-        if (col > 24) {
-          rows.push(columns)
-          col = span
-          columns = []
-        }
-        columns.push(item)
-      })
+      formColumns
+        .filter((item) => {
+          if (item.show && item.destroyOnHide) {
+            return item.show(formData)
+          }
+          return true
+        })
+        .forEach((item) => {
+          let span = item.span || 12
+          col = col + span
+          if (col > 24) {
+            rows.push(columns)
+            col = span
+            columns = []
+          }
+          columns.push(item)
+        })
       if (columns.length > 0) {
         rows.push(columns)
       }
@@ -185,9 +192,10 @@ export default {
     this.subForms = {}
   },
   render() {
-    const columns = this.getRowColumns(this.columns)
-    const defaultGutter = 12
     const formData = this.form.getFieldsValue()
+    const columns = this.getRowColumns(this.columns, formData)
+    const defaultGutter = 12
+
     // 由于将动态输入单独封装到wrapper.vue，所以这里显示隐藏控制需要提升到此才能生效
     const wrapperField = (item) => {
       if (item.show && !item.show(formData)) {
